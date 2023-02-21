@@ -15,6 +15,16 @@ const AsteroidsGame = () => {
     // Game loop logic
     const gameLoop = () => {
       // Update game state here
+      const xVelocity = player.velocity.x * 0.99;
+  const yVelocity = player.velocity.y * 0.99;
+
+  // Update the player state with the new velocity
+  setPlayer((prevState) => ({
+    ...prevState,
+    x: prevState.x + xVelocity,
+    y: prevState.y + yVelocity,
+    velocity: { x: xVelocity, y: yVelocity },
+  }));
     };
 
     // Start game loop
@@ -32,7 +42,7 @@ const AsteroidsGame = () => {
     if (keyCode === 37) {
       setPlayer((prevState) => ({
         ...prevState,
-        angle: prevState.angle - 10,
+        angle: prevState.angle - 17.5,
       }));
     }
 
@@ -40,15 +50,34 @@ const AsteroidsGame = () => {
     if (keyCode === 39) {
       setPlayer((prevState) => ({
         ...prevState,
-        angle: prevState.angle + 10,
+        angle: prevState.angle + 17.5,
       }));
     }
 
     // Up arrow key
   if (keyCode === 38) {
     const radians = (player.angle * Math.PI) / 180; // convert angle to radians
-    const xVelocity = player.velocity.x + Math.sin(radians) * 0.5; // add to x velocity based on angle
-    const yVelocity = player.velocity.y - Math.cos(radians) * 0.5; // add to y velocity based on angle
+    const acceleration = 3.5; //adjust this value to change the ships acceleration
+    const xVelocity = player.velocity.x + Math.sin(radians) * acceleration; // add to x velocity based on angle
+    const yVelocity = player.velocity.y - Math.cos(radians) * acceleration; // add to y velocity based on angle
+    const x = player.x + xVelocity; // calculate new x position
+    const y = player.y + yVelocity; // calculate new y position
+
+    setPlayer((prevState) => ({
+      ...prevState,
+      x: x,
+      y: y,
+      velocity: { x: xVelocity, y: yVelocity },
+    }));
+  }
+
+  // Down arrow key
+  if (keyCode === 40) {
+    const radians = (player.angle * Math.PI) / 180; // convert angle to radians
+    const xVelocity =
+      player.velocity.x - Math.sin(radians) * 3.5; // subtract from x velocity based on angle
+    const yVelocity =
+      player.velocity.y + Math.cos(radians) * 3.5; // add to y velocity based on angle
     const x = player.x + xVelocity; // calculate new x position
     const y = player.y + yVelocity; // calculate new y position
 
