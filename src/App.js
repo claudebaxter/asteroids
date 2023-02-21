@@ -41,14 +41,17 @@ const AsteroidsGame = () => {
       tabIndex={0}
     >
       <div
+        className="ship"
         style={{
           position: "absolute",
           left: `${player.x + 400}px`,
-          top: `${player.y + 300}px`,
+          top: `${player.y + 280}px`,
           transform: `rotate(${player.angle}deg)`,
-          width: "20px",
-          height: "40px",
-          border: "1px solid #fff",
+          width: 0,
+          height: 0,
+          borderLeft: "10px solid transparent",
+          borderRight: "10px solid transparent",
+          borderBottom: "30px solid white",
         }}
       />
       {asteroids.map((asteroid) => (
