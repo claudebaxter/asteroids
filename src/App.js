@@ -26,6 +26,39 @@ const AsteroidsGame = () => {
 
   const handleKeyDown = (event) => {
     // Update game state based on user input
+    const { keyCode } = event;
+
+    //left arrow key
+    if (keyCode === 37) {
+      setPlayer((prevState) => ({
+        ...prevState,
+        angle: prevState.angle - 10,
+      }));
+    }
+
+      // Right arrow key
+    if (keyCode === 39) {
+      setPlayer((prevState) => ({
+        ...prevState,
+        angle: prevState.angle + 10,
+      }));
+    }
+
+    // Up arrow key
+  if (keyCode === 38) {
+    const radians = (player.angle * Math.PI) / 180; // convert angle to radians
+    const xVelocity = player.velocity.x + Math.sin(radians) * 0.5; // add to x velocity based on angle
+    const yVelocity = player.velocity.y - Math.cos(radians) * 0.5; // add to y velocity based on angle
+    const x = player.x + xVelocity; // calculate new x position
+    const y = player.y + yVelocity; // calculate new y position
+
+    setPlayer((prevState) => ({
+      ...prevState,
+      x: x,
+      y: y,
+      velocity: { x: xVelocity, y: yVelocity },
+    }));
+  }
   };
 
   return (
@@ -41,7 +74,7 @@ const AsteroidsGame = () => {
       tabIndex={0}
     >
       <div
-        className="ship"
+        id="ship"
         style={{
           position: "absolute",
           left: `${player.x + 400}px`,
