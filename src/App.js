@@ -3,8 +3,8 @@ import "./App.css";
 
 const AsteroidsGame = () => {
   const [player, setPlayer] = useState({
-    x: 0,
-    y: 0,
+    x: 400,
+    y: 300,
     angle: 0,
     velocity: { x: 0, y: 0 },
   });
@@ -40,10 +40,10 @@ const AsteroidsGame = () => {
           }))
           .filter(
             (bullet) =>
-              bullet.x > -400 &&
-              bullet.x < 400 &&
-              bullet.y > -300 &&
-              bullet.y < 300 &&
+              bullet.x > 0 &&
+              bullet.x < 800 &&
+              bullet.y > 0 &&
+              bullet.y < 600 &&
               !asteroids.some((asteroid) => isColliding(bullet, asteroid))
           )
       );
@@ -125,9 +125,9 @@ const AsteroidsGame = () => {
     const yVelocity = player.velocity.y - Math.cos(radians) * bulletSpeed;
     const xOffset = Math.sin(radians) + 400; // add an offset to the x position--add these to the x and y variables in place of the numbers if you want to use
     const yOffset = -Math.cos(radians) + 250; // add an offset to the y position
-    const x = player.x + 400; // calculate the new x position
-    const y = player.y + 250; // calculate the new y position
-    
+    const x = player.x; // calculate the new x position
+    const y = player.y; // calculate the new y position
+
     console.log("player-angle", player.angle);
     console.log("radians", radians);
     console.log("xVelocity", xVelocity);
@@ -164,8 +164,8 @@ const AsteroidsGame = () => {
         id="ship"
         style={{
           position: "absolute",
-          left: `${player.x + 400}px`,
-          top: `${player.y + 280}px`,
+          left: `${player.x}px`,
+          top: `${player.y}px`,
           transform: `rotate(${player.angle}deg)`,
           width: 0,
           height: 0,
@@ -203,11 +203,11 @@ const Bullet = ({ x, y }) => {
       className="bullet"
       style={{
         position: "absolute",
-        top: y - bulletSize / 2,
-        left: x - bulletSize / 2,
-        width: bulletSize,
-        height: bulletSize,
-        borderRadius: bulletSize / 2,
+        top: `${y - bulletSize / 2}px`,
+        left: `${x - bulletSize / 2}px`,
+        width: `${bulletSize}px`,
+        height: `${bulletSize}px`,
+        borderRadius: `${bulletSize / 2}px`,
         backgroundColor: "#fff",
       }}
     />
