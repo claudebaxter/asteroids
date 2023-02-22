@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
+const screenWidth = 800;
+const screenHeight = 600;
+const screenCenter = new DOMPoint(screenWidth / 2, screenHeight / 2);
+
 const AsteroidsGame = () => {
+  const playerSize = 30;
+  const getPlayerCenter = (player) => new DOMPoint(player.x + player.size / 2, player.y + player.size / 2);
   const [player, setPlayer] = useState({
-    x: 400,
-    y: 300,
+    x: screenCenter.x,
+    y: screenCenter.y,
+    size: playerSize,
     angle: 0,
     velocity: { x: 0, y: 0 },
   });
+  player.center = getPlayerCenter(player);
   const [asteroids, setAsteroids] = useState([]);
   const [bullets, setBullets] = useState([]);
 
@@ -94,6 +102,7 @@ const AsteroidsGame = () => {
       ...prevState,
       x: x,
       y: y,
+      center: getPlayerCenter(player),
       velocity: { x: xVelocity, y: yVelocity },
     }));
   }
@@ -112,6 +121,7 @@ const AsteroidsGame = () => {
       ...prevState,
       x: x,
       y: y,
+      center: getPlayerCenter(player),
       velocity: { x: xVelocity, y: yVelocity },
     }));
   }
@@ -123,17 +133,14 @@ const AsteroidsGame = () => {
     const bulletSpeed = 7;
     const xVelocity = player.velocity.x + Math.sin(radians) * bulletSpeed;
     const yVelocity = player.velocity.y - Math.cos(radians) * bulletSpeed;
-    const xOffset = Math.sin(radians) + 400; // add an offset to the x position--add these to the x and y variables in place of the numbers if you want to use
-    const yOffset = -Math.cos(radians) + 250; // add an offset to the y position
-    const x = player.x; // calculate the new x position
-    const y = player.y; // calculate the new y position
+    const x = player.center.x + Math.sin(radians) * (player.size / 2);
+    const y = player.center.y - Math.cos(radians) * (player.size / 2);
 
     console.log("player-angle", player.angle);
     console.log("radians", radians);
     console.log("xVelocity", xVelocity);
     console.log("yVelocity", yVelocity);
-    console.log("xOffset", xOffset);
-    console.log("yOffset", yOffset);
+    console.log('Center: ', player.center);
     console.log("playerx", player.x);
     console.log("playery", player.y);
     console.log("x", x);
@@ -169,8 +176,8 @@ const AsteroidsGame = () => {
           transform: `rotate(${player.angle}deg)`,
           width: 0,
           height: 0,
-          borderLeft: "10px solid transparent",
-          borderRight: "10px solid transparent",
+          borderLeft: "15px solid transparent",
+          borderRight: "15px solid transparent",
           borderBottom: "30px solid white",
         }}
       />
