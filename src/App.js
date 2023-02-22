@@ -123,10 +123,22 @@ const AsteroidsGame = () => {
     const bulletSpeed = 7;
     const xVelocity = player.velocity.x + Math.sin(radians) * bulletSpeed;
     const yVelocity = player.velocity.y - Math.cos(radians) * bulletSpeed;
-    const xOffset = Math.sin(radians) + 400; // add an offset to the x position
+    const xOffset = Math.sin(radians) + 400; // add an offset to the x position--add these to the x and y variables in place of the numbers if you want to use
     const yOffset = -Math.cos(radians) + 250; // add an offset to the y position
-    const x = player.x + xOffset; // calculate the new x position
-    const y = player.y + yOffset; // calculate the new y position
+    const x = player.x + 400; // calculate the new x position
+    const y = player.y + 250; // calculate the new y position
+    
+    console.log("player-angle", player.angle);
+    console.log("radians", radians);
+    console.log("xVelocity", xVelocity);
+    console.log("yVelocity", yVelocity);
+    console.log("xOffset", xOffset);
+    console.log("yOffset", yOffset);
+    console.log("playerx", player.x);
+    console.log("playery", player.y);
+    console.log("x", x);
+    console.log("y", y);
+
 
     setBullets((prevState) => [
       ...prevState,
